@@ -1,9 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
-import Counter from './shared/counter'
+import Login from './shared/auth/login'
 
 export default function App() {
-  return <View style={styles.container}>{<Counter />}</View>
+  return (
+    <View style={styles.container}>
+      {<Login imgSrc={require('./shared/images/google.png')} mobile={true} />}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
