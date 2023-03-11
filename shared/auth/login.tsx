@@ -105,7 +105,7 @@ const Login = ({
         onPress={
           mobile
             ? () => {
-                signInGoogle({ useProxy: false, showInRecents: true })
+                signInGoogle({ useProxy: true, showInRecents: true })
               }
             : () => {
                 signInGoogle('google')
