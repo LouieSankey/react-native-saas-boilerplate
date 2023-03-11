@@ -1,125 +1,164 @@
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Button,
+  Image
+  // @ts-ignore
+} from 'react-native-alias'
 // @ts-ignore
-import { StyleSheet } from 'react-native-alias'
 import { BorderRadii, Colors, FontSizes } from '../ui/constants'
+// @ts-ignore
+import { createStyled } from '@emotion/primitives-core'
+import { withTouchableText, withHoverOpacity } from '../ui/component-wrappers'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: Colors.white
-  },
+const styled = createStyled(StyleSheet)
 
-  header: {
-    alignItems: 'center',
-    marginBottom: 20
-  },
-  headerText: {
-    fontSize: FontSizes.xlarge,
-    fontWeight: 'bold'
-  },
-  form: {
-    width: '100%',
-    marginBottom: 20
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.lightGrey,
-    borderRadius: BorderRadii.small,
-    marginBottom: 10,
-    width: '100%'
-  },
-  inputLabelText: {
-    paddingBottom: 5,
-    marginBottom: 10
-  },
-  input: {
-    flex: 1,
-    padding: 10,
-    marginRight: 10
-  },
-  showPasswordButton: {
-    padding: 5
-  },
-  showPasswordIcon: {
-    width: 20,
-    height: 20
-  },
-  submitButtonContainer: {
-    backgroundColor: Colors.blue,
-    padding: 10,
-    borderRadius: BorderRadii.small,
-    alignItems: 'center',
-    marginBottom: 10,
-    width: '100%'
-  },
-  submitButtonText: {
-    color: Colors.white,
-    fontSize: FontSizes.large
-  },
-  googleButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.white,
-    padding: 10,
-    borderRadius: BorderRadii.small,
-    borderColor: Colors.lightGrey,
-    borderWidth: 1,
-    marginBottom: 10,
-    width: '100%'
-  },
-  googleButtonText: {
-    fontSize: FontSizes.medium,
-    fontWeight: 'bold',
-    color: Colors.darkGrey,
-    marginLeft: 10
-  },
-  googleButtonIcon: {
-    width: 20,
-    height: 20
-  },
+export const Container = styled(View)`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-horizontal: 20px;
+  background-color: ${Colors.white};
+`
 
-  forgotPasswordContainer: {
-    alignItems: 'flex-end'
-  },
-  forgotPasswordText: {
-    color: Colors.blue,
-    fontSize: FontSizes.medium
-  },
-  orDividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20
-  },
-  orDivider: {
-    flex: 1,
-    height: 1,
-    backgroundColor: Colors.lightGrey
-  },
-  orDividerText: {
-    paddingHorizontal: 10,
-    fontSize: FontSizes.medium,
-    color: Colors.gray
-  },
+export const Header = styled(View)`
+  align-items: center;
+  margin-bottom: 20px;
+`
 
-  signupContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  signupText: {
-    marginRight: 5,
-    fontSize: FontSizes.medium,
-    color: Colors.darkGrey
-  },
-  signupLink: {
-    fontSize: FontSizes.medium,
-    fontWeight: 'bold',
-    color: Colors.blue
-  }
-})
+export const HeaderText = styled(Text)`
+  font-size: ${FontSizes.xlarge};
+  font-weight: bold;
+`
 
-export default styles
+export const Form = styled(View)`
+  width: 100%;
+  margin-bottom: 20px;
+`
+
+export const FormErrorMessage = styled(Text)`
+  margin-top: -6px;
+  margin-bottom: 10px;
+  color: ${Colors.red};
+`
+
+export const InputContainer = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  border-width: 1px;
+  border-color: ${Colors.lightGrey};
+  border-radius: ${BorderRadii.small};
+  margin-bottom: 10px;
+  width: 100%;
+`
+
+export const InputHelperText = styled(Text)`
+  color: grey;
+  margin-bottom: 20px;
+  font-size: ${FontSizes.small};
+`
+
+export const InputLabelText = styled(Text)`
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+`
+
+export const Input = styled(TextInput)`
+  flex: 1;
+  padding: 10px;
+  color: black;
+`
+
+export const ShowPasswordButton = styled(TouchableOpacity)`
+  padding: 5px;
+`
+
+export const ShowPasswordIcon = styled(Image)`
+  width: 20px;
+  height: 20px;
+`
+
+export const BaseButton = styled(withHoverOpacity)`
+  padding: 10px;
+  align-items: center;
+  border-radius: ${BorderRadii.small};
+  opacity: 0.9;
+  background-color: ${(props: { backgroundColor: any }) =>
+    props.backgroundColor};
+`
+
+export const BaseButtonText = styled(Text)`
+  color: ${(props: { textColor: any }) => props.textColor};
+  font-size: ${FontSizes.large};
+`
+
+export const GoogleButtonContainer = styled(TouchableOpacity)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: ${Colors.white};
+  padding: 10px;
+  border-radius: ${BorderRadii.small};
+  border-color: ${Colors.lightGrey};
+  border-width: 1px;
+  margin-bottom: 10px;
+  width: 100%;
+`
+
+export const GoogleButtonText = styled(Text)`
+  font-size: ${FontSizes.medium};
+  font-weight: bold;
+  color: ${Colors.darkGrey};
+  margin-left: 10px;
+`
+
+export const GoogleButtonIcon = styled(Image)`
+  width: 20px;
+  height: 20px;
+`
+
+export const ForgotPasswordContainer = styled(View)`
+  align-items: flex-end;
+`
+
+export const ForgotPasswordText = styled(withTouchableText)`
+  color: ${Colors.blue};
+  font-size: ${FontSizes.medium};
+  margin-top: 10px;
+`
+
+export const OrDividerContainer = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+`
+
+export const OrDivider = styled(View)`
+  flex: 1;
+  height: 1px;
+  background-color: ${Colors.lightGrey};
+`
+
+export const OrDividerText = styled(Text)`
+  padding-horizontal: 10px;
+  font-size: ${FontSizes.medium};
+  color: ${Colors.gray};
+`
+
+export const SignupContainer = styled(View)`
+  flex-direction: row;
+  align-items: center;
+`
+
+export const SignupText = styled(Text)`
+  margin-right: 5px;
+  font-size: ${FontSizes.medium};
+`
+
+export const SignupLink = styled(withTouchableText)`
+  color: #007aff;
+  font-size: 16px;
+`

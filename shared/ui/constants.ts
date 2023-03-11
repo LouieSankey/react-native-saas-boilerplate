@@ -3,18 +3,19 @@ export const Colors = {
   lightGrey: '#ddd',
   blue: '#1e90ff',
   gray: '#aaa',
-  darkGrey: '#333'
+  darkGrey: '#333',
+  red: '#FF0000'
 }
 
 export const FontSizes = {
-  small: 14,
-  medium: 16,
-  large: 18,
-  xlarge: 20
+  small: '14px',
+  medium: '16px',
+  large: '18px',
+  xlarge: '20px'
 }
 
 export const BorderRadii = {
-  small: 5,
-  medium: 10,
-  large: 15
+  small: '5px',
+  medium: '10px',
+  large: '15px'
 }
