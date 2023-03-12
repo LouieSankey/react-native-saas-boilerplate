@@ -5,6 +5,7 @@ import SignUp from '../shared/auth/signup'
 // import Login from './shared/auth/login'
 import { useEffect, useState } from 'react'
 import GoogleAuth from './google-auth'
+import { persistAuth } from './auth-hooks'
 
 type RootStackParamList = {
   SignIn: any
@@ -38,6 +39,7 @@ export function LoginScreen({ navigation, route }: LoginScreenProps) {
 export const SignUpScreen = ({ navigation, route }: SignUpScreenProps) => {
   const [token, setToken] = useState('')
   const [userInfo, setUserInfo] = useState(null)
+
   const { request, response, promptAsync } = GoogleAuth()
 
   useEffect(() => {

@@ -1,4 +1,6 @@
 import * as Google from 'expo-auth-session/providers/google'
+import { useEffect } from 'react'
+import { persistAuth } from './auth-hooks'
 
 const GoogleAuth = () => {
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -9,6 +11,12 @@ const GoogleAuth = () => {
     expoClientId:
       '135427563097-gco1a99g49luj4pk849h9oeei3ubcu1q.apps.googleusercontent.com'
   })
+
+  useEffect(() => {
+    if (response) {
+      persistAuth(response)
+    }
+  }, [response])
 
   return {
     request,
