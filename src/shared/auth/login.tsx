@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Colors } from '../ui/constants'
+import { BorderRadii, Colors } from '../ui/constants'
 import {
-  Container,
+  ForgotPasswordContainer,
+  SignupText,
+  ForgotPasswordText,
   Form,
-  FormErrorMessage,
   GoogleButtonContainer,
   GoogleButtonIcon,
   GoogleButtonText,
@@ -11,15 +12,17 @@ import {
   HeaderText,
   Input,
   InputContainer,
-  InputHelperText,
   InputLabelText,
   OrDivider,
   OrDividerContainer,
   OrDividerText,
   ShowPasswordButton,
   SignupContainer,
+  Container,
   SignupLink,
-  SignupText
+  ShowPasswordIcon,
+  BaseButton,
+  FormErrorMessage
 } from './auth-styles'
 
 import {
@@ -27,29 +30,23 @@ import {
   // @ts-ignore
 } from 'react-native-alias'
 import { CustomButton } from '../ui/buttons'
-import { emailValidator, passwordValidator } from '../util/validator'
 
-const SignUp = ({
+const Login = ({
   imgSrc,
   mobile,
   navigation,
-  signUpGoogle,
   onSubmit,
-  authError,
-  request
+  signInGoogle,
+  authError
 }: any) => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-
-  const isError = false // TODO: add error handling
 
   return (
     <Container style={mobile ? mobileStyles.container : webStyles.container}>
       <Header>
-        <HeaderText>Create a new account</HeaderText>
+        <HeaderText>Sign in to your account</HeaderText>
       </Header>
 
       <Form>
@@ -57,13 +54,11 @@ const SignUp = ({
         <InputContainer>
           <Input
             value={email}
-            onChangeText={(text: React.SetStateAction<string>) =>
+            onChangeText={(text: React.SetStateAction<string>) => {
               setEmail(text)
-            }
-            onBlur={(e: any) => setEmailError(emailValidator(email) || '')}
+            }}
           />
         </InputContainer>
-        {emailError !== '' && <FormErrorMessage>{emailError}</FormErrorMessage>}
         <InputLabelText>Password</InputLabelText>
         <InputContainer>
           <Input
@@ -71,9 +66,6 @@ const SignUp = ({
             value={password}
             onChangeText={(text: React.SetStateAction<string>) =>
               setPassword(text)
-            }
-            onBlur={(e: any) =>
-              setPasswordError(passwordValidator(password) || '')
             }
           />
           <ShowPasswordButton onPress={() => setShowPassword(!showPassword)}>
@@ -87,13 +79,7 @@ const SignUp = ({
           </ShowPasswordButton>
         </InputContainer>
         {authError !== '' && <FormErrorMessage>{authError}</FormErrorMessage>}
-        {passwordError !== '' && (
-          <FormErrorMessage>{passwordError}</FormErrorMessage>
-        )}
-        <InputHelperText>
-          Password must be 8 or more characters and contain at least 1 number
-          and 1 special character (@$!%*?&).
-        </InputHelperText>
+
         <CustomButton
           backgroundColor={Colors.blue}
           textColor={Colors.white}
@@ -101,23 +87,26 @@ const SignUp = ({
             return onSubmit(e, email, password)
           }}
         >
-          Sign up
+          Sign in
         </CustomButton>
+        <ForgotPasswordContainer>
+          <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
+        </ForgotPasswordContainer>
       </Form>
       <OrDividerContainer>
         <OrDivider />
         <OrDividerText>OR</OrDividerText>
         <OrDivider />
       </OrDividerContainer>
+      {/* onPress will allow you to click */}
       <GoogleButtonContainer
-        disabled={!request}
         onPress={
           mobile
             ? () => {
-                signUpGoogle({ useProxy: true, showInRecents: true })
+                signInGoogle({ useProxy: true, showInRecents: true })
               }
             : () => {
-                signUpGoogle('google')
+                signInGoogle('google')
               }
         }
       >
@@ -126,17 +115,18 @@ const SignUp = ({
       </GoogleButtonContainer>
 
       <SignupContainer>
-        <SignupText>Already have an account?</SignupText>
+        <SignupText>Need an account?</SignupText>
+
         <SignupLink
           onPress={
             mobile
-              ? () => navigation.navigate('SignIn', { name: 'SignIn' })
+              ? () => navigation.navigate('SignUp', { name: 'Sign up' })
               : () => {
-                  navigation.push('/auth/login')
+                  navigation.push('/auth/signup')
                 }
           }
         >
-          LOGIN
+          SIGN UP
         </SignupLink>
       </SignupContainer>
     </Container>
@@ -158,4 +148,4 @@ const webStyles = StyleSheet.create({
   }
 })
 
-export default SignUp
+export default Login

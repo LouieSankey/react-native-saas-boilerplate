@@ -3,9 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Login from '../shared/auth/login'
 import SignUp from '../shared/auth/signup'
 // import Login from './shared/auth/login'
-import { useEffect, useState } from 'react'
 import GoogleAuth from './google-auth'
-import { persistAuth } from './auth-hooks'
 
 type RootStackParamList = {
   SignIn: any
@@ -23,6 +21,7 @@ type SignUpScreenProps = {
 }
 
 export function LoginScreen({ navigation, route }: LoginScreenProps) {
+  //passing this through as props so that I can keep the sign in and login components as shared
   const { request, response, promptAsync } = GoogleAuth()
 
   return (
@@ -31,23 +30,13 @@ export function LoginScreen({ navigation, route }: LoginScreenProps) {
       mobile={true}
       navigation={navigation}
       signInGoogle={promptAsync}
-      request={request}
     />
   )
 }
 
 export const SignUpScreen = ({ navigation, route }: SignUpScreenProps) => {
-  const [token, setToken] = useState('')
-  const [userInfo, setUserInfo] = useState(null)
-
+  //passing this through as props so that I can keep the sign in and login components as shared
   const { request, response, promptAsync } = GoogleAuth()
-
-  useEffect(() => {
-    if (response?.type === 'success') {
-      // setToken(response.authentication.accessToken)
-      // getUserInfo()
-    }
-  }, [response, token])
 
   return (
     <SignUp
@@ -55,7 +44,6 @@ export const SignUpScreen = ({ navigation, route }: SignUpScreenProps) => {
       mobile={true}
       navigation={navigation}
       signUpGoogle={promptAsync}
-      request={request}
     />
   )
 }
