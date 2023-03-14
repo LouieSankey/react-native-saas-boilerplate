@@ -1,13 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useEffect } from 'react'
 import { Button, Text } from 'react-native'
 import { useActions } from './session/util-hooks/use-actions'
 //make sure to import this correctly, maybe you should rename it?
 import { useSelector } from './session/util-hooks/use-typed-selector'
-import { LoginScreen, SignUpScreen } from './util/screen-wrappers'
+import { LoginScreen, SignUpScreen } from './ui/screen-wrappers'
 
 const Layout: React.FC = () => {
   const Stack = createNativeStackNavigator()
   const { data, error, loading } = useSelector((state) => state.repositories)
+
+  useEffect(() => {
+    console.log('data ', data, error)
+  }, [data, error])
 
   return (
     <>
@@ -41,6 +46,8 @@ export default Layout
 
 const Home = () => {
   const { LogoutSession } = useActions()
+  const { data, error, loading } = useSelector((state) => state.repositories)
+  console.log(data)
 
   return (
     <>

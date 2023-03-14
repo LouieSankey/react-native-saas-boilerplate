@@ -1,5 +1,6 @@
 //as our app grows we would want to create more files in this directory for different types of actions
-import { TokenResponse } from 'expo-auth-session'
+// import { TokenResponse } from 'expo-auth-session'
+import { Session } from '../../../sharedTypes/types'
 import { ActionType } from '../action-types'
 
 interface UpdateSessionAction {
@@ -7,7 +8,7 @@ interface UpdateSessionAction {
 }
 interface UpdateSessionSuccessAction {
   type: ActionType.UPDATE_SESSION_SUCCESS
-  payload: TokenResponse
+  payload: Session
 }
 interface UpdateSessionErrorAction {
   type: ActionType.UPDATE_SESSION_ERROR
@@ -18,7 +19,7 @@ interface LogoutSessionAction {
 }
 interface LogoutSessionSuccessAction {
   type: ActionType.LOGOUT_SESSION_SUCCESS
-  payload: TokenResponse
+  payload: Session
 }
 interface LogoutSessionErrorAction {
   type: ActionType.LOGOUT_SESSION_ERROR

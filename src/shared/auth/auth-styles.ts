@@ -12,7 +12,10 @@ import {
 import { BorderRadii, Colors, FontSizes } from '../ui/constants'
 // @ts-ignore
 import { createStyled } from '@emotion/primitives-core'
-import { withTouchableText, withHoverOpacity } from '../ui/component-wrappers'
+import {
+  withTouchableText,
+  withHoverOpacity
+} from '../ui/styled-component-wrappers'
 
 const styled = createStyled(StyleSheet)
 

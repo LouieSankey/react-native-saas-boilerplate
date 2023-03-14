@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { TokenResponse } from 'expo-auth-session'
+import { Session } from '../../../sharedTypes/types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 
 interface SessionState {
   loading: boolean
   error: string | null
-  data: TokenResponse | null
+  data: Session | null
 }
 
 const initialState: SessionState = {

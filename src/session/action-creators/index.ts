@@ -1,19 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { TokenResponse } from 'expo-auth-session'
 import { Dispatch } from 'redux'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 import * as AuthSession from 'expo-auth-session'
+import { Session } from '../../../sharedTypes/types'
 
-// TODO this is duplicated and needs to be restructured
-type Session = TokenResponse
-
+//! destructure this from useActions instead of using directly
 export const UpdateSession = (session: Session) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.UPDATE_SESSION
     })
-
     //do something that may take some time here, like a network request. In the mean time
     //loading can be displayed with your selector
     try {
@@ -41,12 +38,12 @@ export const LogoutSession = () => {
       // Get the session from AsyncStorage
       const sessionString = await AsyncStorage.getItem('session')
       // Assert that the session object is of type TokenResponse
-      const session: TokenResponse = JSON.parse(sessionString!)
+      const session: Session = JSON.parse(sessionString!)
 
-      if (session) {
+      if (session.accessToken) {
         await AuthSession.revokeAsync(
           {
-            token: session.accessToken
+            token: session.accessToken!
           },
           {
             revocationEndpoint: 'https://oauth2.googleapis.com/revoke'

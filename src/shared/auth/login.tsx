@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BorderRadii, Colors } from '../ui/constants'
+import { Colors } from '../ui/constants'
 import {
   ForgotPasswordContainer,
   SignupText,
@@ -20,8 +20,6 @@ import {
   SignupContainer,
   Container,
   SignupLink,
-  ShowPasswordIcon,
-  BaseButton,
   FormErrorMessage
 } from './auth-styles'
 
