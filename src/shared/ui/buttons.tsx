@@ -8,6 +8,7 @@ interface ButtonProps {
   children: React.ReactNode
 }
 
+//! to position the CustomButton you should use a wrapper element
 export const CustomButton = ({
   textColor,
   backgroundColor,
