@@ -1,6 +1,16 @@
+import { useLazyQuery, useMutation } from '@apollo/client'
 import * as Google from 'expo-auth-session/providers/google'
 import { useEffect } from 'react'
+import { Session, User } from '../../sharedTypes/types'
 import { useActions } from '../session/util-hooks/use-actions'
+import { client } from '../shared/graphql/apollo-client'
+import UserOperations from '../shared/graphql/operations/user'
+import {
+  GetUserInput,
+  GetUserResponse,
+  SignUpInput,
+  SignUpResponse
+} from '../shared/util/types'
 
 const GoogleAuth = () => {
   const { UpdateSession } = useActions()
@@ -18,7 +28,8 @@ const GoogleAuth = () => {
   useEffect(() => {
     if (response) {
       if (response.type === 'success') {
-        UpdateSession(response.authentication!)
+        // UpdateSession(response.authentication!)
+        getUserInfo(response.authentication!.accessToken, UpdateSession)
       }
     }
   }, [response])
@@ -27,6 +38,40 @@ const GoogleAuth = () => {
     request,
     response,
     promptAsync
+  }
+}
+
+const getUserInfo = async (token: string, UpdateSession: any) => {
+  //first get the user email from google api
+  let userInfoResponse = await fetch(
+    'https://www.googleapis.com/userinfo/v2/me',
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  )
+  //get the user info from google
+  const googleInfo = await userInfoResponse.json()
+
+  try {
+    const { data } = await client.query<GetUserResponse, GetUserInput>({
+      query: UserOperations.Queries.getUser,
+      variables: {
+        email: googleInfo.email
+      }
+    })
+    const user = data?.getUser
+    UpdateSession(user)
+  } catch (error) {
+    const { data } = await client.mutate<SignUpResponse, SignUpInput>({
+      //you might needs to expand this to include all google sign up fields
+      mutation: UserOperations.Mutations.signUp,
+      variables: {
+        email: googleInfo.email,
+        password: 'password'
+      }
+    })
+    const user = data?.signUp
+    UpdateSession({ user: user })
   }
 }
 

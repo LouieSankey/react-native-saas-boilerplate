@@ -48,7 +48,7 @@ const SignUp = ({
   return (
     <Container style={mobile ? mobileStyles.container : webStyles.container}>
       <Header>
-        <HeaderText>Create a new account</HeaderText>
+        <HeaderText>Create your free account</HeaderText>
       </Header>
 
       <Form>

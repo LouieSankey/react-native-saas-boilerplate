@@ -11,8 +11,6 @@ export const UpdateSession = (session: Session) => {
     dispatch({
       type: ActionType.UPDATE_SESSION
     })
-    //do something that may take some time here, like a network request. In the mean time
-    //loading can be displayed with your selector
     try {
       const authData = JSON.stringify(session)
       AsyncStorage.setItem('session', authData).catch((error: any) => {

@@ -4,15 +4,19 @@ import { Button, Text } from 'react-native'
 import { useActions } from './session/util-hooks/use-actions'
 //make sure to import this correctly, maybe you should rename it?
 import { useSelector } from './session/util-hooks/use-typed-selector'
-import { LoginScreen, SignUpScreen } from './ui/screen-wrappers'
+import { SignUpScreen } from './screens/signUp'
+import { LoginScreen } from './screens/login'
+import Home from './screens/home'
+import { Account } from './screens/upgrade'
+import UpgradeOptions from './shared/auth/UpgradeOptions'
 
 const Layout: React.FC = () => {
   const Stack = createNativeStackNavigator()
   const { data, error, loading } = useSelector((state) => state.repositories)
 
   useEffect(() => {
-    console.log('data ', data, error)
-  }, [data, error])
+    console.log('mobile session data', JSON.stringify(data, null, 2))
+  }, [data])
 
   return (
     <>
@@ -23,6 +27,7 @@ const Layout: React.FC = () => {
             component={Home}
             options={{ title: 'Home' }}
           />
+          <Stack.Screen name='Account' component={UpgradeOptions} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator>
@@ -43,16 +48,3 @@ const Layout: React.FC = () => {
 }
 
 export default Layout
-
-const Home = () => {
-  const { LogoutSession } = useActions()
-  const { data, error, loading } = useSelector((state) => state.repositories)
-  console.log(data)
-
-  return (
-    <>
-      <Text>Hello</Text>
-      <Button title='Logout' onPress={() => LogoutSession()}></Button>
-    </>
-  )
-}

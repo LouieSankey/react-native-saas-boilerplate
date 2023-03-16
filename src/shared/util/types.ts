@@ -17,7 +17,7 @@ export interface CreateUsernameVariables {
 }
 
 export interface SignUpInput {
-  password: String
+  password: String | null
   email: String
   stripeCustomerId?: String
   emailVerified?: String
@@ -34,6 +34,14 @@ export interface SignUpResponse {
 
 export interface SignInResponse {
   signIn: User
+}
+
+export interface GetUserResponse {
+  getUser: User
+}
+
+export interface GetUserInput {
+  email: string
 }
 
 export interface CreateStripeCustomerIdInput {
