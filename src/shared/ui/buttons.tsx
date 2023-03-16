@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BaseButton, BaseButtonText } from '../auth/auth-styles'
+import { BaseButton, BaseButtonText } from '../screens/styles'
 
 interface ButtonProps {
   textColor: string

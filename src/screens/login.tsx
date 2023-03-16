@@ -2,9 +2,9 @@ import { RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { useActions } from '../session/util-hooks/use-actions'
-import Login from '../shared/auth/login'
 import { client } from '../shared/graphql/apollo-client'
 import UserOperations from '../shared/graphql/operations/user'
+import Login from '../shared/screens/login'
 
 import {
   SignInInput,

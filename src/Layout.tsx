@@ -7,8 +7,8 @@ import { useSelector } from './session/util-hooks/use-typed-selector'
 import { SignUpScreen } from './screens/signUp'
 import { LoginScreen } from './screens/login'
 import Home from './screens/home'
-import { Account } from './screens/upgrade'
-import UpgradeOptions from './shared/auth/UpgradeOptions'
+
+import UpgradeOptionsWrapper from './screens/upgrade'
 
 const Layout: React.FC = () => {
   const Stack = createNativeStackNavigator()
@@ -27,7 +27,7 @@ const Layout: React.FC = () => {
             component={Home}
             options={{ title: 'Home' }}
           />
-          <Stack.Screen name='Account' component={UpgradeOptions} />
+          <Stack.Screen name='Account' component={UpgradeOptionsWrapper} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator>

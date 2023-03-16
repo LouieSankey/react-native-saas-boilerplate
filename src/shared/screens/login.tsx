@@ -21,7 +21,7 @@ import {
   Container,
   SignupLink,
   FormErrorMessage
-} from './auth-styles'
+} from './styles'
 
 import {
   StyleSheet

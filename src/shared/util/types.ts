@@ -65,3 +65,29 @@ export interface User {
   stripeCustomerId: string
   // error: string
 }
+
+export interface StripeProduct {
+  id: string
+  default_price: string
+  object: 'product'
+  active: boolean
+  name: string
+  description?: string
+  images?: string[]
+  metadata: Record<string, any>
+  statement_descriptor?: string
+  unit_label?: string
+  updated: number
+  created: number
+}
+
+//types for setting up responsive css using props
+export interface ScreenSize {
+  screenSize: 'mobile' | 'tablet' | 'desktop'
+}
+
+export interface ScreenOptions {
+  mobile: string
+  tablet: string
+  desktop: string
+}

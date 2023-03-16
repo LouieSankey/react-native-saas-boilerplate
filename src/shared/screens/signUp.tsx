@@ -20,7 +20,7 @@ import {
   SignupContainer,
   SignupLink,
   SignupText
-} from './auth-styles'
+} from './styles'
 
 import {
   StyleSheet
