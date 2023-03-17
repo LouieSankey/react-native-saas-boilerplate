@@ -1,4 +1,4 @@
-name: Continuous Deployment to TestFlight
+name: Expo CI/CD to TestFlight
 
 on:
   push:
@@ -6,25 +6,41 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
-    runs-on: macOS-latest
+  build:
+    runs-on: macos-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          cd ios
-          pod install
-      - name: Build and Archive
-        run: |
-          cd ios
-          xcodebuild -workspace MyProject.xcworkspace -scheme MyScheme archive -archivePath MyArchive.xcarchive
-      - name: Create IPA
-        run: |
-          cd ios
-          xcodebuild -exportArchive -archivePath MyArchive.xcarchive -exportPath MyApp.ipa -exportOptionsPlist ExportOptions.plist
-      - name: Deploy to TestFlight
-        uses: wowsmith/testflight-deploy@v1.1.0
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.4.0
         with:
-          api_token: ${{ secrets.TESTFLIGHT_API_TOKEN }}
-          app_file: './ios/MyApp.ipa'
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build iOS archive
+        run: expo build:ios -t archive
+
+      - name: Publish OTA update
+        run: expo publish
+
+      - name: Create release channel
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation { createReleaseChannel(input: { name: \"testflight\" }) { clientMutationId, releaseChannel { id } } }" }' https://expo.io/graphql
+
+      - name: Set default OTA release
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation { updateProject(input: { slug: \"<your-project-slug>\", releaseChannelId: \"<your-release-channel-id>\" }) { clientMutationId, project { slug, defaultReleaseChannel { name } } } }" }' https://expo.io/graphql
+
+      - name: Install Fastlane
+        run: bundle install --gemfile ios/Gemfile
+
+      - name: Upload to TestFlight
+        run: |
+          fastlane deliver --ipa "ios/build/boilerplate.ipa" --skip_screenshots --skip_metadata --skip_app_version_update
+
+      - name: Distribute to TestFlight
+        run: |
+          fastlane pilot upload --ipa "ios/build/boilerplate.ipa" --skip_submission --skip_waiting_for_build_processing
