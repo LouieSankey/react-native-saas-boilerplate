@@ -9,23 +9,22 @@ jobs:
   build_and_deploy:
     runs-on: macOS-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        cd ios
-        pod install
-    - name: Build and Archive
-      run: |
-        cd ios
-        xcodebuild -workspace MyProject.xcworkspace -scheme MyScheme archive -archivePath MyArchive.xcarchive
-    - name: Create IPA
-      run: |
-        cd ios
-        xcodebuild -exportArchive -archivePath MyArchive.xcarchive -exportPath MyApp.ipa -exportOptionsPlist ExportOptions.plist
-    - name: Deploy to TestFlight
-      uses: wowsmith/testflight-deploy@v1.1.0
-      with:
-        api_token: ${{ secrets.TESTFLIGHT_API_TOKEN }}
-        team_token: ${{ secrets.TESTFLIGHT_TEAM_TOKEN }}
-        app_file: './ios/MyApp.ipa'
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          cd ios
+          pod install
+      - name: Build and Archive
+        run: |
+          cd ios
+          xcodebuild -workspace MyProject.xcworkspace -scheme MyScheme archive -archivePath MyArchive.xcarchive
+      - name: Create IPA
+        run: |
+          cd ios
+          xcodebuild -exportArchive -archivePath MyArchive.xcarchive -exportPath MyApp.ipa -exportOptionsPlist ExportOptions.plist
+      - name: Deploy to TestFlight
+        uses: wowsmith/testflight-deploy@v1.1.0
+        with:
+          api_token: ${{ secrets.TESTFLIGHT_API_TOKEN }}
+          app_file: './ios/MyApp.ipa'
