@@ -1,49 +1,33 @@
-name: Expo CI/CD to TestFlight
-
+name: Build and Deploy to TestFlight
 on:
   push:
     branches:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: macos-latest
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.4.0
+        uses: actions/setup-node@v2
         with:
           node-version: '16.x'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install Expo CLI
-        run: npm install -g expo-cli
-
-      - name: Build iOS archive
-        run: expo build:ios -t archive
-
-      - name: Publish OTA update
-        run: expo publish
-
-      - name: Create release channel
+      - name: Build and Deploy to TestFlight
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation { createReleaseChannel(input: { name: \"testflight\" }) { clientMutationId, releaseChannel { id } } }" }' https://expo.io/graphql
-
-      - name: Set default OTA release
-        run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"query": "mutation { updateProject(input: { slug: \"<your-project-slug>\", releaseChannelId: \"<your-release-channel-id>\" }) { clientMutationId, project { slug, defaultReleaseChannel { name } } } }" }' https://expo.io/graphql
-
-      - name: Install Fastlane
-        run: bundle install --gemfile ios/Gemfile
+          npm install -g eas-cli
+          eas login -u ${{ secrets.APPLE_ID }} -p ${{ secrets.APP_SPECIFIC_PASSWORD }}
+          eas build -p ios --profile distribution
 
       - name: Upload to TestFlight
-        run: |
-          fastlane deliver --ipa "ios/build/boilerplate.ipa" --skip_screenshots --skip_metadata --skip_app_version_update
-
-      - name: Distribute to TestFlight
-        run: |
-          fastlane pilot upload --ipa "ios/build/boilerplate.ipa" --skip_submission --skip_waiting_for_build_processing
+        uses: wzieba/TestflightUploader@v1.0.0
+        with:
+          api-token: ${{ secrets.TESTFLIGHT_API_TOKEN }}
+          ipa-path: './ios/build/outputs/ipa/boilerplate.ipa'
+          notify: true
+          teams: 'Testflight Testers'
