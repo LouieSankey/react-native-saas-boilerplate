@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { useActions } from '../session/util-hooks/use-actions'
 import { client } from '../shared/graphql/apollo-client'
-import UserOperations from '../shared/graphql/operations/user'
+import Operations from '../shared/graphql/operations/index'
 import Login from '../shared/screens/login'
 
 import {
@@ -38,7 +38,7 @@ export function LoginScreen({ navigation, route }: LoginScreenProps) {
 
     //the graphql mutation here, it should return user or an error that can be passed to auth error
     try {
-      const signIn = UserOperations.Mutations.signIn
+      const signIn = Operations.Mutations.signIn
       const response = await client.mutate<SignInResponse, SignInInput>({
         mutation: signIn,
         variables: {

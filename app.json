@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "boilerplate",
-    "slug": "boilerplate",
+    "name": "boilerplate tester app",
+    "slug": "boilerplate-tester-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,11 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.louissankey.boilerplate"
+      "bundleIdentifier": "com.louissankey.spiral-productivity",
+      "buildNumber": "1.0.3"
     },
     "android": {
-      "package": "com.louissankey.boilerplate",
+      "package": "com.hoopstagee.boilerplatetesterapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -30,9 +31,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "owner": "hoopstagee",
     "extra": {
       "eas": {
-        "projectId": "932445a7-b169-49a1-b79e-bccce9e4c7f0"
+        "projectId": "0773df5e-ed1d-4186-bc75-7e18a400f384"
       }
     }
   }

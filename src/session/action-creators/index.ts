@@ -3,7 +3,7 @@ import { Dispatch } from 'redux'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 import * as AuthSession from 'expo-auth-session'
-import { Session } from '../../../sharedTypes/types'
+import { Session } from '../../util/sharedTypes/types'
 
 //! destructure this from useActions instead of using directly
 export const UpdateSession = (session: Session) => {
@@ -60,4 +60,10 @@ export const LogoutSession = () => {
       })
     }
   }
+}
+//not sure where I should put this fn
+export const useSession = () => {
+  // const sessionString = await AsyncStorage.getItem('session')
+  // const session: Session = await JSON.parse(sessionString!)
+  return 'hello'
 }

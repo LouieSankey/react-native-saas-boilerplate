@@ -7,11 +7,9 @@ export const getMedia = (size: ScreenSize, screen: ScreenOptions) => {
       return screen.mobile
     case 'tablet':
       console.log('tablet')
-
       return screen.tablet
     case 'desktop':
       console.log('desktop')
-
       return screen.desktop
     default:
       break

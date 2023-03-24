@@ -14,6 +14,7 @@ export interface User {
   emailVerified?: boolean
   image?: string
   name?: string
+  tier?: string
   stripeCustomerId?: string
 }
 

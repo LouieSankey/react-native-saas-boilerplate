@@ -1,10 +1,10 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
 import * as Google from 'expo-auth-session/providers/google'
 import { useEffect } from 'react'
-import { Session, User } from '../../sharedTypes/types'
+import { Session, User } from './sharedTypes/types'
 import { useActions } from '../session/util-hooks/use-actions'
 import { client } from '../shared/graphql/apollo-client'
-import UserOperations from '../shared/graphql/operations/user'
+import Operations from '../shared/graphql/operations/index'
 import {
   GetUserInput,
   GetUserResponse,
@@ -54,7 +54,7 @@ const getUserInfo = async (token: string, UpdateSession: any) => {
 
   try {
     const { data } = await client.query<GetUserResponse, GetUserInput>({
-      query: UserOperations.Queries.getUser,
+      query: Operations.Queries.getUser,
       variables: {
         email: googleInfo.email
       }
@@ -64,7 +64,7 @@ const getUserInfo = async (token: string, UpdateSession: any) => {
   } catch (error) {
     const { data } = await client.mutate<SignUpResponse, SignUpInput>({
       //you might needs to expand this to include all google sign up fields
-      mutation: UserOperations.Mutations.signUp,
+      mutation: Operations.Mutations.signUp,
       variables: {
         email: googleInfo.email,
         password: 'password'

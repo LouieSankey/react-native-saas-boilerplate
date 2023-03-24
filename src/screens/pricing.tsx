@@ -1,19 +1,27 @@
 import { ScrollView } from 'react-native'
-import UpgradeOptions from '../shared/screens/upgrade'
+import UpgradeOptions from '../shared/screens/pricing'
 import { StripeProduct } from '../shared/util/types'
 
 const UpgradeOptionsWrapper = () => {
   const products = mockData()
 
+  const purchaseProduct = async () => {
+    console.log('this will purchase the product for mobile')
+  }
+
   return (
     <ScrollView>
-      <UpgradeOptions products={products}></UpgradeOptions>
+      <UpgradeOptions
+        products={products}
+        purchaseProduct={purchaseProduct}
+      ></UpgradeOptions>
     </ScrollView>
   )
 }
 
 export default UpgradeOptionsWrapper
 const mockData = () => {
+  //this will be replaced with similar products from ios or android
   const products: StripeProduct[] = [
     {
       id: 'prod_123',

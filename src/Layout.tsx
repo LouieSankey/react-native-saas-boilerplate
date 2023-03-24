@@ -7,8 +7,9 @@ import { useSelector } from './session/util-hooks/use-typed-selector'
 import { SignUpScreen } from './screens/signUp'
 import { LoginScreen } from './screens/login'
 import Home from './screens/home'
+import 'react-native-gesture-handler'
 
-import UpgradeOptionsWrapper from './screens/upgrade'
+import UpgradeOptionsWrapper from './screens/pricing'
 
 const Layout: React.FC = () => {
   const Stack = createNativeStackNavigator()

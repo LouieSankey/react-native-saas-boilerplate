@@ -1,4 +1,3 @@
-//all of our graphql
 import { gql } from '@apollo/client'
 
 const UserOperations = {
@@ -23,9 +22,11 @@ const UserOperations = {
           password: $password
           stripeCustomerId: $stripeCustomerId
         ) {
+          id
           email
           emailVerified
           stripeCustomerId
+          tier
         }
       }
     `,
@@ -37,27 +38,12 @@ const UserOperations = {
         }
       }
     `,
-    createStripeCustomerId: gql`
-      mutation createStripeCustomerId($customerId: String!) {
-        createStripeCustomerId(customerId: $customerId) {
-          success
-          error
-        }
-      }
-    `,
 
     createUsername: gql`
       mutation createUsername($username: String!) {
         createUsername(username: $username) {
           success
           error
-        }
-      }
-    `,
-    createCheckoutSession: gql`
-      mutation CreateCheckoutSession($priceId: String!, $quantity: Int!) {
-        createCheckoutSession(priceId: $priceId, quantity: $quantity) {
-          id
         }
       }
     `

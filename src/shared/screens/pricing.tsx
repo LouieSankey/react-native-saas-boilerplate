@@ -1,17 +1,21 @@
 import {
   StyleSheet,
-  Text,
   View
   // @ts-ignore
 } from 'react-native-alias'
 // @ts-ignore
 import { createStyled } from '@emotion/primitives-core'
+import PricingCard from '../components/pricing/pricingCard'
 import { useScreenSize } from '../hooks/useScreenSize'
 import { getMedia } from '../ui/responsive-css-helpers'
 import { ScreenSize, StripeProduct } from '../util/types'
-import PricingCard from '../components/pricingCard'
 
-const UpgradeOptions = ({ products }: { products: StripeProduct[] }) => {
+interface UpgradeOptionsProps {
+  products: StripeProduct[]
+  purchaseProduct(name: string): Promise<void>
+}
+
+const UpgradeOptions = ({ products, purchaseProduct }: UpgradeOptionsProps) => {
   const screenSize = useScreenSize()
   const sortedProducts = products.sort(
     (a, b) => a.metadata.price - b.metadata.price
@@ -19,42 +23,15 @@ const UpgradeOptions = ({ products }: { products: StripeProduct[] }) => {
 
   return (
     <Grid screenSize={screenSize}>
-      {sortedProducts.map((product, index) => (
-        <Card
+      {sortedProducts.map((product) => (
+        <PricingCard
           key={product.name}
           screenSize={screenSize}
-          price={'$' + product.metadata.price + '/Month'}
-          name={product.name}
-          features={Object.entries(product.metadata)
-            .filter(([key, value]) => key !== 'price')
-            .map(([key, value]) => value)}
+          product={product}
+          purchaseProduct={purchaseProduct}
         />
       ))}
     </Grid>
-  )
-}
-
-const Card = ({
-  screenSize,
-  price,
-  name,
-  features
-}: {
-  screenSize: string
-  price: string
-  name: string
-  features: string[]
-}) => {
-  const onPress = (e: any) => {
-    console.log(e.target.value)
-  }
-  return (
-    <PricingCard
-      screenSize={screenSize}
-      name={name}
-      price={price}
-      features={features}
-    />
   )
 }
 

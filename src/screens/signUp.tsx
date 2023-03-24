@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useActions } from '../session/util-hooks/use-actions'
 import SignUp from '../shared/screens/signUp'
 import { client } from '../shared/graphql/apollo-client'
-import UserOperations from '../shared/graphql/operations/user'
+import Operations from '../shared/graphql/operations/index'
 import { SignUpInput, SignUpResponse } from '../shared/util/types'
 import GoogleAuth from '../util/google-auth'
 
@@ -31,7 +31,7 @@ export const SignUpScreen = ({ navigation, route }: SignUpScreenProps) => {
   ) => {
     event.preventDefault()
     //the graphql mutation here, it should return user or an error that can be passed to auth error
-    const signUp = UserOperations.Mutations.signUp
+    const signUp = Operations.Mutations.signUp
     const signUpResponse = await client.mutate<SignUpResponse, SignUpInput>({
       mutation: signUp,
       variables: {
