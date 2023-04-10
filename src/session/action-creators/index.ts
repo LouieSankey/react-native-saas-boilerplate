@@ -3,7 +3,7 @@ import { Dispatch } from 'redux'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 import * as AuthSession from 'expo-auth-session'
-import { Session } from '../../util/sharedTypes/types'
+import { Session } from '../../../globalTypes/types'
 
 //! destructure this from useActions instead of using directly
 export const UpdateSession = (session: Session) => {

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Session } from '../../util/sharedTypes/types'
+import { Session } from '../../../globalTypes/types'
 import { ActionType } from '../action-types'
 import { Action } from '../actions'
 

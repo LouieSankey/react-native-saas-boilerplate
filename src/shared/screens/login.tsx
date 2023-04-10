@@ -5,9 +5,7 @@ import {
   SignupText,
   ForgotPasswordText,
   Form,
-  GoogleButtonContainer,
   GoogleButtonIcon,
-  GoogleButtonText,
   Header,
   HeaderText,
   Input,
@@ -41,6 +39,12 @@ const Login = ({
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.nativeEvent.key === 'Enter') {
+      onSubmit(e, email, password)
+    }
+  }
+
   return (
     <Container style={mobile ? mobileStyles.container : webStyles.container}>
       <Header>
@@ -51,7 +55,9 @@ const Login = ({
         <InputLabelText>Email</InputLabelText>
         <InputContainer>
           <Input
+            nativeID='login-email'
             value={email}
+            onKeyPress={handleKeyPress}
             onChangeText={(text: React.SetStateAction<string>) => {
               setEmail(text)
             }}
@@ -60,8 +66,10 @@ const Login = ({
         <InputLabelText>Password</InputLabelText>
         <InputContainer>
           <Input
+            nativeID='login-password'
             secureTextEntry={!showPassword}
             value={password}
+            onKeyPress={handleKeyPress}
             onChangeText={(text: React.SetStateAction<string>) =>
               setPassword(text)
             }
@@ -76,11 +84,15 @@ const Login = ({
             /> */}
           </ShowPasswordButton>
         </InputContainer>
-        {authError !== '' && <FormErrorMessage>{authError}</FormErrorMessage>}
+        {authError !== '' && (
+          <FormErrorMessage nativeID='form-error'>{authError}</FormErrorMessage>
+        )}
 
         <CustomButton
-          backgroundColor={Colors.blue}
+          backgroundColor={Colors.brandPrimary}
           textColor={Colors.white}
+          hoverColor={Colors.brandSecondary}
+          disabled={false}
           onPress={(e) => {
             return onSubmit(e, email, password)
           }}
@@ -97,24 +109,27 @@ const Login = ({
         <OrDivider />
       </OrDividerContainer>
       {/* onPress will allow you to click */}
-      <GoogleButtonContainer
+      <CustomButton
+        textColor={Colors.black}
+        backgroundColor={Colors.white}
+        borderColor={Colors.mediumGrey}
+        hoverColor={Colors.lightGrey}
         onPress={
           mobile
-            ? () => {
-                signInGoogle({ useProxy: true, showInRecents: true })
+            ? async () => {
+                await signInGoogle({ useProxy: true, showInRecents: true })
               }
-            : () => {
-                signInGoogle('google')
+            : async () => {
+                await signInGoogle('google')
               }
         }
       >
         <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-        <GoogleButtonText>Continue with Google</GoogleButtonText>
-      </GoogleButtonContainer>
+        Continue with Google
+      </CustomButton>
 
       <SignupContainer>
         <SignupText>Need an account?</SignupText>
-
         <SignupLink
           onPress={
             mobile

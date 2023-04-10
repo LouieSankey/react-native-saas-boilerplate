@@ -1,9 +1,13 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { Button, Text } from 'react-native'
+import { useContext, useState } from 'react'
+//@ts-ignore
+import { Button, Switch, Text, View } from 'react-native-alias'
 import DropdownNavigation from '../components/dropdown-nav'
 import { useActions } from '../session/util-hooks/use-actions'
 import { useSelector } from '../session/util-hooks/use-typed-selector'
+import AppContext from '../shared/context/appContext'
+import { useTheme } from '@emotion/react'
 
 type RootStackParamList = {
   Home: any
@@ -17,6 +21,14 @@ type LoginScreenProps = {
 function Home({ navigation, route }: LoginScreenProps) {
   const { LogoutSession } = useActions()
   const { data, error, loading } = useSelector((state) => state.repositories)
+  const theme = useTheme()
+  const { toggleTheme } = useContext(AppContext)
+  const [isChecked, setIsChecked] = useState(false)
+
+  function handleChange(event: any) {
+    setIsChecked((isChecked) => !isChecked)
+    toggleTheme()
+  }
 
   const onSelect = (index: string) => {
     console.log(index)
@@ -29,7 +41,15 @@ function Home({ navigation, route }: LoginScreenProps) {
   }
   return (
     <>
-      <DropdownNavigation onSelect={onSelect} options={['upgrade', 'logout']} />
+      <View
+        style={{ flex: 1, backgroundColor: theme.colors.backgroundPrimary }}
+      >
+        <Switch onValueChange={handleChange} value={isChecked} />
+        <DropdownNavigation
+          onSelect={onSelect}
+          options={['upgrade', 'logout']}
+        />
+      </View>
     </>
   )
 }

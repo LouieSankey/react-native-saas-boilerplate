@@ -6,7 +6,7 @@ import {
   View
   // @ts-ignore
 } from 'react-native-alias'
-import { StripeProduct } from '../../util/types'
+import { StripeProduct } from '../../sharedUtils/types'
 import { Colors } from '../../ui/constants'
 import { CustomButton } from '../../ui/buttons'
 // @ts-ignore
@@ -19,7 +19,13 @@ interface PricingCardProps {
 }
 
 const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
-  const session = useSession()
+  let session
+  try {
+    session = useSession()
+  } catch (error) {
+    console.log('session error ', error)
+  }
+
   console.log(JSON.stringify(session, null, 2))
   const isSubscribed = product.name === session?.data?.user?.tier
 
@@ -37,7 +43,8 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
       <SelectButtonWrapper>
         <CustomButton
           textColor={Colors.white}
-          backgroundColor={isSubscribed ? Colors.blue : 'black'}
+          backgroundColor={isSubscribed ? Colors.brandPrimary : Colors.black}
+          hoverColor={isSubscribed ? Colors.brandSecondary : Colors.darkGrey}
           onPress={() => purchaseProduct(product.default_price)}
           disabled={isSubscribed} // disable the button if subscribed
         >
@@ -59,7 +66,7 @@ const Card = styled(View)`
   padding: 16px;
   max-width: 100%;
   border-width: 2px;
-  border-color: ${Colors.blue};
+  border-color: ${Colors.brandPrimary};
 `
 
 const Title = styled(Text)`

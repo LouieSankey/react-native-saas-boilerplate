@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 
 import { Provider } from 'react-redux'
-import Layout from './src/layout'
+import Layout from './src/Layout'
 import { store } from './src/session'
 
 export default function App() {

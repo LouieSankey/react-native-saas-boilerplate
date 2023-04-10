@@ -1,5 +1,4 @@
-import { Session } from 'next-auth'
-import { User } from '../../util/sharedTypes/types'
+import { Session, User } from '../../../globalTypes/types'
 
 export interface IAuthProps {
   session: Session | null
@@ -55,17 +54,6 @@ export interface CreateStripeCustomerIdResponse {
     error: string
   }
 }
-
-// export interface User {
-//   id: string
-//   username: string
-//   email: string
-//   emailVerified: boolean
-//   image: string
-//   name: string
-//   stripeCustomerId: string
-//   tier: string
-// }
 
 export interface StripeProduct {
   id: string

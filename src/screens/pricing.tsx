@@ -1,6 +1,6 @@
 import { ScrollView } from 'react-native'
 import UpgradeOptions from '../shared/screens/pricing'
-import { StripeProduct } from '../shared/util/types'
+import { StripeProduct } from '../shared/sharedUtils/types'
 
 const UpgradeOptionsWrapper = () => {
   const products = mockData()

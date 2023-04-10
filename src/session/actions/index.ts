@@ -1,6 +1,6 @@
 //as our app grows we would want to create more files in this directory for different types of actions
 // import { TokenResponse } from 'expo-auth-session'
-import { Session } from '../../util/sharedTypes/types'
+import { Session } from '../../../globalTypes/types'
 import { ActionType } from '../action-types'
 
 interface UpdateSessionAction {

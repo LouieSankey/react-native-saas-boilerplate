@@ -4,9 +4,7 @@ import {
   Container,
   Form,
   FormErrorMessage,
-  GoogleButtonContainer,
   GoogleButtonIcon,
-  GoogleButtonText,
   Header,
   HeaderText,
   Input,
@@ -27,7 +25,7 @@ import {
   // @ts-ignore
 } from 'react-native-alias'
 import { CustomButton } from '../ui/buttons'
-import { emailValidator, passwordValidator } from '../util/validator'
+import { emailValidator, passwordValidator } from '../sharedUtils/validator'
 
 const SignUp = ({
   imgSrc,
@@ -55,6 +53,7 @@ const SignUp = ({
         <InputLabelText>Email</InputLabelText>
         <InputContainer>
           <Input
+            nativeID='signup-email'
             value={email}
             onChangeText={(text: React.SetStateAction<string>) =>
               setEmail(text)
@@ -66,6 +65,7 @@ const SignUp = ({
         <InputLabelText>Password</InputLabelText>
         <InputContainer>
           <Input
+            nativeID='signup-password'
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={(text: React.SetStateAction<string>) =>
@@ -94,7 +94,9 @@ const SignUp = ({
           and 1 special character (@$!%*?&).
         </InputHelperText>
         <CustomButton
-          backgroundColor={Colors.blue}
+          disabled={false}
+          hoverColor={Colors.brandSecondary}
+          backgroundColor={Colors.brandPrimary}
           textColor={Colors.white}
           onPress={(e) => {
             return onSubmit(e, email, password)
@@ -108,20 +110,24 @@ const SignUp = ({
         <OrDividerText>OR</OrDividerText>
         <OrDivider />
       </OrDividerContainer>
-      <GoogleButtonContainer
+      <CustomButton
+        textColor={Colors.black}
+        backgroundColor={Colors.white}
+        hoverColor={Colors.lightGrey}
+        borderColor={Colors.mediumGrey}
         onPress={
           mobile
-            ? () => {
-                signUpGoogle({ useProxy: true, showInRecents: true })
+            ? async () => {
+                await signUpGoogle({ useProxy: true, showInRecents: true })
               }
-            : () => {
-                signUpGoogle('google')
+            : async () => {
+                await signUpGoogle('google')
               }
         }
       >
         <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-        <GoogleButtonText>Continue with Google</GoogleButtonText>
-      </GoogleButtonContainer>
+        Continue with Google
+      </CustomButton>
 
       <SignupContainer>
         <SignupText>Already have an account?</SignupText>

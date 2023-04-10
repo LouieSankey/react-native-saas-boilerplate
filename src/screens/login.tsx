@@ -11,8 +11,8 @@ import {
   SignInResponse,
   SignUpInput,
   SignUpResponse
-} from '../shared/util/types'
-import GoogleAuth from '../util/google-auth'
+} from '../shared/sharedUtils/types'
+import GoogleAuth from '../../google-auth'
 
 type RootStackParamList = {
   SignIn: any
