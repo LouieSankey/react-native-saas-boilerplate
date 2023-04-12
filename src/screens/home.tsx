@@ -2,7 +2,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useContext, useState } from 'react'
 //@ts-ignore
-import { Button, Switch, Text, View } from 'react-native-alias'
+import { Button, Switch, Text, View } from 'react-native'
 import DropdownNavigation from '../components/dropdown-nav'
 import { useActions } from '../session/util-hooks/use-actions'
 import { useSelector } from '../session/util-hooks/use-typed-selector'

@@ -6,10 +6,7 @@ module.exports = {
   ...defaultConfig,
   resolver: {
     extraNodeModules: {
-      'react-native-alias': path.resolve(
-        __dirname,
-        'node_modules/react-native'
-      ),
+      'react-native': path.resolve(__dirname, 'node_modules/react-native'),
       'use-session-alias': path.resolve(
         __dirname,
         '/Users/louis/Desktop/Graphql-Boilerplate/mobile/src/session/use-session'
