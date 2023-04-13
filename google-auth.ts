@@ -3,7 +3,7 @@ import * as Google from 'expo-auth-session/providers/google'
 import { useEffect } from 'react'
 import { Session, User } from './globalTypes/types'
 import { useActions } from './src/session/util-hooks/use-actions'
-import { client } from './src/shared/graphql/apollo-client'
+import { client } from './apollo-client'
 import Operations from './src/shared/graphql/operations/index'
 import {
   GetUserInput,

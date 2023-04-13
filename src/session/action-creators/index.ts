@@ -31,12 +31,18 @@ export const UpdateSession = (session: Session) => {
 }
 
 export const LogoutSession = () => {
+  console.log('1')
   return async (dispatch: Dispatch<Action>) => {
     try {
+      console.log('2')
+
       // Get the session from AsyncStorage
       const sessionString = await AsyncStorage.getItem('session')
+      console.log('3')
+
       // Assert that the session object is of type TokenResponse
       const session: Session = JSON.parse(sessionString!)
+      console.log('4', session)
 
       if (session.accessToken) {
         await AuthSession.revokeAsync(
@@ -47,9 +53,9 @@ export const LogoutSession = () => {
             revocationEndpoint: 'https://oauth2.googleapis.com/revoke'
           }
         )
-
-        await AsyncStorage.removeItem('session')
       }
+      console.log('removed from storage')
+      await AsyncStorage.removeItem('session')
       dispatch({
         type: ActionType.LOGOUT_SESSION
       })

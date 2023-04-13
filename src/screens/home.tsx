@@ -8,6 +8,8 @@ import { useActions } from '../session/util-hooks/use-actions'
 import { useSelector } from '../session/util-hooks/use-typed-selector'
 import AppContext from '../shared/context/appContext'
 import { useTheme } from '@emotion/react'
+import ColorModeSwitch from '../shared/components/colorModeSwitch'
+import { Box } from 'native-base'
 
 type RootStackParamList = {
   Home: any
@@ -20,18 +22,8 @@ type LoginScreenProps = {
 
 function Home({ navigation, route }: LoginScreenProps) {
   const { LogoutSession } = useActions()
-  const { data, error, loading } = useSelector((state) => state.repositories)
-  const theme = useTheme()
-  const { toggleTheme } = useContext(AppContext)
-  const [isChecked, setIsChecked] = useState(false)
-
-  function handleChange(event: any) {
-    setIsChecked((isChecked) => !isChecked)
-    toggleTheme()
-  }
 
   const onSelect = (index: string) => {
-    console.log(index)
     if (index === 'upgrade') {
       navigation.navigate('Account')
     }
@@ -41,15 +33,21 @@ function Home({ navigation, route }: LoginScreenProps) {
   }
   return (
     <>
-      <View
-        style={{ flex: 1, backgroundColor: theme.colors.backgroundPrimary }}
+      <Box
+        h='100%'
+        _dark={{
+          bg: 'coolGray.800'
+        }}
+        _light={{
+          bg: 'warmGray.50'
+        }}
       >
-        <Switch onValueChange={handleChange} value={isChecked} />
+        <ColorModeSwitch />
         <DropdownNavigation
           onSelect={onSelect}
           options={['upgrade', 'logout']}
         />
-      </View>
+      </Box>
     </>
   )
 }

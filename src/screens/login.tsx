@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { useActions } from '../session/util-hooks/use-actions'
-import { client } from '../shared/graphql/apollo-client'
+import { client } from '../../apollo-client'
 import Operations from '../shared/graphql/operations/index'
 import Login from '../shared/screens/login'
 
@@ -48,11 +48,16 @@ export function LoginScreen({ navigation, route }: LoginScreenProps) {
       })
 
       const { data } = response
+
       const user = data?.signIn
+      console.log('the user is', user)
+
       if (user) {
         UpdateSession(user)
       }
     } catch (error: any) {
+      console.log('there was an error', error)
+
       setError(error.message)
     }
   }

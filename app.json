@@ -3,7 +3,6 @@
     "name": "boilerplate tester app",
     "slug": "boilerplate-tester-app",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "scheme": "boilerplate",
@@ -33,6 +32,8 @@
     },
     "owner": "hoopstagee",
     "extra": {
+      "DEV_API": "http://localhost:4000/graphql",
+      "PROD_API": "https://boilerplate-backend.herokuapp.com/graphql",
       "eas": {
         "projectId": "0773df5e-ed1d-4186-bc75-7e18a400f384"
       }

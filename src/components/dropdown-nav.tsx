@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { createStyled } from '@emotion/primitives-core'
 // @ts-ignore
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native'
+import { Box, Center, CheckIcon, Select } from 'native-base'
 
 const DropdownNavigation = ({
   options,
@@ -11,30 +12,29 @@ const DropdownNavigation = ({
   options: any
   onSelect: any
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(null)
-
-  const handleSelectOption = (option: any) => {
-    setSelectedOption(option)
-    onSelect(option)
-    setIsOpen(false)
-  }
+  const [option, setOption] = React.useState('')
 
   return (
-    <Container>
-      <Button onPress={() => setIsOpen(!isOpen)}>
-        <ButtonText>{selectedOption || 'Select an option'}</ButtonText>
-      </Button>
-      {isOpen && (
-        <Dropdown>
+    <Center>
+      <Box w='100%'>
+        <Select
+          selectedValue={option}
+          minWidth='200'
+          accessibilityLabel='Choose Service'
+          placeholder='Choose Service'
+          _selectedItem={{
+            bg: 'teal.600',
+            endIcon: <CheckIcon size='5' />
+          }}
+          mt={1}
+          onValueChange={(itemValue) => onSelect(itemValue)}
+        >
           {options.map((option: any) => (
-            <Option key={option} onPress={() => handleSelectOption(option)}>
-              <OptionText>{option}</OptionText>
-            </Option>
+            <Select.Item label={option} value={option} />
           ))}
-        </Dropdown>
-      )}
-    </Container>
+        </Select>
+      </Box>
+    </Center>
   )
 }
 

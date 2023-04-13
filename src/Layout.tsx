@@ -23,13 +23,13 @@ const Layout: React.FC = () => {
     console.log('mobile session data', JSON.stringify(data, null, 2))
   }, [data])
 
-  function toggleTheme() {
-    setTheme(theme === 'day' ? 'night' : 'day')
+  function someFunction() {
+    console.log('some function')
   }
 
   return (
     <>
-      <AppContext.Provider value={{ toggleTheme }}>
+      <AppContext.Provider value={{ someFunction }}>
         <ThemeProvider theme={theme === 'day' ? dayTheme : nightTheme}>
           {data ? (
             <Stack.Navigator>
