@@ -9,7 +9,7 @@ import { useSelector } from '../session/util-hooks/use-typed-selector'
 import AppContext from '../shared/context/appContext'
 import { useTheme } from '@emotion/react'
 import ColorModeSwitch from '../shared/components/colorModeSwitch'
-import { Box } from 'native-base'
+import { Box, VStack } from 'native-base'
 
 type RootStackParamList = {
   Home: any
@@ -42,11 +42,13 @@ function Home({ navigation, route }: LoginScreenProps) {
           bg: 'warmGray.50'
         }}
       >
-        <ColorModeSwitch />
         <DropdownNavigation
           onSelect={onSelect}
           options={['upgrade', 'logout']}
         />
+        <Box>
+          <ColorModeSwitch />
+        </Box>
       </Box>
     </>
   )
