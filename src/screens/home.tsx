@@ -10,6 +10,7 @@ import AppContext from '../shared/context/appContext'
 import { useTheme } from '@emotion/react'
 import ColorModeSwitch from '../shared/components/colorModeSwitch'
 import { Box, VStack } from 'native-base'
+import Clock from '../components/clock/clock'
 
 type RootStackParamList = {
   Home: any
@@ -48,6 +49,9 @@ function Home({ navigation, route }: LoginScreenProps) {
         />
         <Box>
           <ColorModeSwitch />
+        </Box>
+        <Box>
+          <Clock />
         </Box>
       </Box>
     </>
